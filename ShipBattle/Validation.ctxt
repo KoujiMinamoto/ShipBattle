@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Validation
+comment1.params=input
+comment1.target=int\ convertStringtoInt(java.lang.String)
+comment2.params=input
+comment2.target=boolean\ StringtoBoolean(java.lang.String)
+comment3.params=iobuffer
+comment3.target=boolean\ validBlank(java.lang.String)
+comment4.params=iobuffer
+comment4.target=boolean\ validplayername(java.lang.String)
+numComments=5

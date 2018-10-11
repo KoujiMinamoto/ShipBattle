@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Ship
+comment1.params=
+comment1.target=Ship()
+comment10.params=hitsneed
+comment10.target=void\ setnoOfHitsNeeded(int)
+comment11.params=
+comment11.target=int\ getnoOfHitsNeeded()
+comment2.params=ship
+comment2.target=void\ setshipName(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ getshipName()
+comment4.params=x
+comment4.target=void\ setxPos(int)
+comment5.params=
+comment5.target=int\ getxPos()
+comment6.params=y
+comment6.target=void\ setyPos(int)
+comment7.params=
+comment7.target=int\ getyPos()
+comment8.params=hitsmade
+comment8.target=void\ setnoOfHitsMade(int)
+comment9.params=
+comment9.target=int\ getnoOfHitsMade()
+numComments=12

@@ -13,4 +13,14 @@ public class ShipList
     {
         return shipList;
     }
+    
+   public boolean addship (Ship newship)
+    {
+        if (newship != null)
+        {
+           shipList.add(newship);
+           return true;
+        }
+        return false;       
+    }
 }

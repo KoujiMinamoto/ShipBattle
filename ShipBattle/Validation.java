@@ -48,7 +48,7 @@ public class Validation
         return true;
     }
     
-    public boolean validplayername(String iobuffer) //method to check insert any empties or blanks
+    public boolean validshipname(String iobuffer) //method to check insert any empties or blanks
     {
         if (iobuffer.matches("[a-zA-z\\-]*"))
         {           

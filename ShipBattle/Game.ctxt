@@ -2,6 +2,10 @@
 comment0.target=Game
 comment1.params=
 comment1.target=void\ playGame()
-comment2.params=
-comment2.target=void\ displaymenu()
-numComments=3
+comment2.params=numberofship\ maxpos
+comment2.target=void\ SetShipName(int,\ int)
+comment3.params=i\ maxpos
+comment3.target=void\ SetcomShipName(int,\ int)
+comment4.params=
+comment4.target=void\ displaymenu()
+numComments=5

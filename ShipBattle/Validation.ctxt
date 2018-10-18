@@ -7,5 +7,5 @@ comment2.target=boolean\ StringtoBoolean(java.lang.String)
 comment3.params=iobuffer
 comment3.target=boolean\ validBlank(java.lang.String)
 comment4.params=iobuffer
-comment4.target=boolean\ validplayername(java.lang.String)
+comment4.target=boolean\ validshipname(java.lang.String)
 numComments=5

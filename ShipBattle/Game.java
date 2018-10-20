@@ -1,22 +1,16 @@
 import java.util.*;
 import java.lang.*;
-import java.io.*;
 public class Game
 {
    private ShipList playerShips;
    private ShipList computerShips;
    CoordinateGenerator Random = new CoordinateGenerator();
-   private String filename;
-    int maxship;
-    int pos;
     int playerscore;
     int comscore;
-    boolean ComputerShipsVisible;
-    boolean MultipleHitsAllowed;
-    String ComputerShipsVisible1;
-    String MultipleHitsAllowed1;
+    int maxship;
     String winner = null;
-    
+    FileIO file = new FileIO();
+    Validation vaild= new Validation();
     
     public Game()
     {
@@ -29,9 +23,10 @@ public class Game
        public void  playGame()
     {
         
-        readFile();
+        file.readFile();
         boolean exit = false;
-        int maxpos = pos;
+        int maxpos = file.pos;
+        maxship = file.maxship;
         int i = 0;
         System.out.println("Loading settings");
         while(i < maxship)
@@ -54,7 +49,7 @@ public class Game
         {
             result(round);
             display(maxpos);
-            if(ComputerShipsVisible==true)
+            if(file.ComputerShipsVisible==true)
             displaycom(maxpos);
             else
             displayhidden(maxpos);
@@ -64,7 +59,7 @@ public class Game
             if(winner!=null)
             {
                 System.out.println("Congrulations!!"+winner+"Win !!"); 
-                writeFile();
+                file.writeFile(winner,playerscore,comscore);
                 exit = true;
             }
             round++;
@@ -78,7 +73,7 @@ public class Game
         System.out.println("=== Add ship ===");
         System.out.println("Please insert ship"+(numberofship+1)+" name"); 
         String newname = input.nextLine();
-        while(!validshipname(newname))
+        while(!vaild.validshipname(newname))
         newname = input.nextLine();
         boolean exit = false;
         int x = 0;
@@ -87,15 +82,15 @@ public class Game
         {
         System.out.println("Please insert ship"+(numberofship+1)+" X(0-"+(maxpos-1)+")"); 
         String newx = input.nextLine();
-        while(!validshipxy(newx,maxpos))
+        while(!vaild.validshipxy(newx,maxpos))
         newx = input.nextLine();
-        x = convertStringtoInt(newx);
+        x = vaild.convertStringtoInt(newx);
         
         System.out.println("Please insert ship"+(numberofship+1)+" Y(0-"+(maxpos-1)+")");
         String newy = input.nextLine();
-        while(!validshipxy(newy,maxpos))
+        while(!vaild.validshipxy(newy,maxpos))
         newy = input.nextLine();
-        y = convertStringtoInt(newy);
+        y = vaild.convertStringtoInt(newy);
         if(validrepeat(x,y)==false)
         exit=true;
         else
@@ -126,7 +121,7 @@ public class Game
         System.out.println("Beginning Round "+i); 
         System.out.println("Player score "+playerscore); 
         System.out.println("Computer score "+comscore); 
-        System.out.println("ComputerShipsVisible mode is"+ComputerShipsVisible1);
+        System.out.println("ComputerShipsVisible mode is"+file.ComputerShipsVisible1);
     
     
     }
@@ -147,10 +142,10 @@ public class Game
         {
             if(numberofhitneed == 0)
             {
-                winner = "Player";
+                winner = "Computer";
             }
             else
-            winner= "Computer";
+            winner= "Player";
         
         }
         else
@@ -254,139 +249,9 @@ public class Game
     
     }
     
-     public void readFile()
-    {
-        filename = ("game.txt");
-        String setting;
-        Ship loadFromFile;        
-        try
-        {
-            FileReader inputFile = new FileReader(filename);
-            Scanner parser = new Scanner(inputFile);;
-            
-
-            setting = parser.nextLine();
-            String[] attribute = setting.split(",");
-            pos = convertStringtoInt(attribute[0]);
-            MultipleHitsAllowed = StringtoBoolean(attribute[1]);
-            ComputerShipsVisible = StringtoBoolean(attribute[2]);
-            maxship = convertStringtoInt(attribute[3]);
-            
-            
-            if (ComputerShipsVisible=true)
-            {
-                ComputerShipsVisible1 = "ON";
-            }
-            else
-            ComputerShipsVisible1 = "OFF";
-            MultipleHitsAllowed1 = attribute[1];
-            
-
-            
-            inputFile.close();
-        }
-        catch(FileNotFoundException exception)
-        {
-            System.out.println(filename + " not found");
-        }
-        catch(IOException exception)
-        {
-            System.out.println("Unexpected I/O error occured");
-        }
-    }
-    
-     public void writeFile()
-    {
-        filename = ("gameoutcome.txt");
-        //try catch to handle IOException
-        try
-        {
-            PrintWriter outputFile = new PrintWriter (filename);
-            outputFile.println(winner +" wins. Final Score Player ("+playerscore+") and Computer ("+comscore+")");
-            outputFile.close();    
-        }
-        catch(IOException exception)
-        {
-            System.out.println("Unexpected I/O error occured");
-        }
-    }
+     
     //vaild
-    public int convertStringtoInt(String input) //method to convert String to Integer
-    {
-        //intialised variables
-        String S = input;
-        int number = 0;
-        //try catch to handle NumberFormatException
-        try
-        {
-            // the String to int conversion happens here
-            number = Integer.parseInt(input.trim());
-            // print out the value after the conversion
-            //System.out.println("int i = " + i);
-        }
-        catch (NumberFormatException nfe)
-        {
-            System.out.println("NumberFormatException: " + nfe.getMessage() + ", please input an integer!");
-        }
-        return number;
-    }
     
-    public boolean StringtoBoolean(String input)
-    {
-        if (input.equals("true"))
-        {
-        
-            return true;
-        }
-        else
-        return false;
-    
-    }
-    
-    public boolean validshipname(String iobuffer) //method to check insert any empties or blanks
-    {
-        if (iobuffer.matches("[a-zA-Z0-9]*"))
-        {        
-            if (iobuffer.trim().isEmpty())
-            {
-                System.out.println("Error : please insert Not blANK !");
-                return false;
-            }
-            return true;
-         }
-        System.out.println("Error: opition shouldn't be #!..Please enter again:");
-        return true;
-    }
-    
-    public boolean validshipxy(String iobuffer,int maxpos) //method to check insert any empties or blanks
-    {
-        if (iobuffer.matches("[0-9]*"))
-        {        
-            if (iobuffer.trim().isEmpty())
-            {
-                System.out.println("Error : please insert Not blANK !");
-                return false;
-            }
-            else if(convertStringtoInt(iobuffer)>=0&&convertStringtoInt(iobuffer)<maxpos)
-            {
-                return true;
-            }
-            else
-            {
-            
-            System.out.println("Error: should in range");
-            return false;
-            }
-         }
-         else
-        {
-        System.out.println("Error: opition should be numbers.Please enter again:");
-        return false;
-        }
-        
-        
-        
-    }
     
     public boolean validrepeat(int x,int y) //method to check insert any empties or blanks
     {

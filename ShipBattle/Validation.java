@@ -1,4 +1,3 @@
-
 public class Validation
 {
     public int convertStringtoInt(String input) //method to convert String to Integer
@@ -33,52 +32,50 @@ public class Validation
     
     }
     
-    public boolean validBlank(String iobuffer) //method to check insert any empties or blanks
+    public boolean validshipname(String iobuffer) //method to check insert any empties or blanks
     {
-        if (iobuffer.matches("[abcdexABCDEX]*"))
+        if (iobuffer.matches("[a-zA-Z0-9]*"))
         {        
-            if (iobuffer.trim().isEmpty() || iobuffer.length() > 1)
+            if (iobuffer.trim().isEmpty())
             {
-                System.out.println("Error : please insert from A to E OR Z !");
+                System.out.println("Error : please insert Not blANK !");
                 return false;
             }
             return true;
          }
-        System.out.println("Error: opition shouldn't be #!123...Please enter again:");
+        System.out.println("Error: opition shouldn't be #!..Please enter again:");
         return true;
     }
     
-    public boolean validshipname(String iobuffer) //method to check insert any empties or blanks
+    public boolean validshipxy(String iobuffer,int maxpos) //method to check insert any empties or blanks
     {
-        if (iobuffer.matches("[a-zA-z\\-]*"))
-        {           
-            if (iobuffer.trim().isEmpty() || iobuffer.length() < 2)
+        if (iobuffer.matches("[0-9]*"))
+        {        
+            if (iobuffer.trim().isEmpty())
             {
-                System.out.println("Error : please insert more than 2!");
+                System.out.println("Error : please insert Not blANK !");
                 return false;
             }
-            int position = 0;
-            char hyphen = '-';
-            int count = 0;
-            for (position = 0; position < iobuffer.length(); position++)
+            else if(convertStringtoInt(iobuffer)>=0&&convertStringtoInt(iobuffer)<maxpos)
             {
-                if (iobuffer.charAt(position) == hyphen)
-                {
-                    count++;
-                    if (count > 1)
-                    return false;
-                }
-                if (iobuffer.charAt(0) == hyphen || iobuffer.charAt(iobuffer.length() - 1) == hyphen)
-                {
-                    return false;
-                }           
+                return true;
             }
-            return true;
-        }
-        else
-        {
-            System.out.println("Error: opition shouldn't be #!123...Please enter again:");
+            else
+            {
+            
+            System.out.println("Error: should in range");
             return false;
+            }
+         }
+         else
+        {
+        System.out.println("Error: opition should be numbers.Please enter again:");
+        return false;
         }
+        
+        
+        
     }
+    
+    
 }

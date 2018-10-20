@@ -2,6 +2,6 @@
 comment0.target=FileIO
 comment1.params=
 comment1.target=void\ readFile()
-comment2.params=
-comment2.target=void\ writeFile()
+comment2.params=winner\ playerscore\ comscore
+comment2.target=void\ writeFile(java.lang.String,\ int,\ int)
 numComments=3

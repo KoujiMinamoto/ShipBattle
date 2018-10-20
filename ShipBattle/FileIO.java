@@ -10,22 +10,27 @@ public class FileIO
     boolean MultipleHitsAllowed;
     String ComputerShipsVisible1;
     String MultipleHitsAllowed1;
-    Validation vaild;
+    Validation vaild= new Validation();
+
      public void readFile()
     {
-        filename = ("gamesettings.txt");
+        filename = ("game.txt");
         String setting;
         Ship loadFromFile;        
         try
         {
             FileReader inputFile = new FileReader(filename);
             Scanner parser = new Scanner(inputFile);;
+            
+
             setting = parser.nextLine();
             String[] attribute = setting.split(",");
             pos = vaild.convertStringtoInt(attribute[0]);
             MultipleHitsAllowed = vaild.StringtoBoolean(attribute[1]);
             ComputerShipsVisible = vaild.StringtoBoolean(attribute[2]);
             maxship = vaild.convertStringtoInt(attribute[3]);
+            
+            
             if (ComputerShipsVisible=true)
             {
                 ComputerShipsVisible1 = "ON";
@@ -48,14 +53,14 @@ public class FileIO
         }
     }
     
-     public void writeFile()
+     public void writeFile(String winner,int playerscore,int comscore)
     {
-        filename = ("statistics.txt");
+        filename = ("gameoutcome.txt");
         //try catch to handle IOException
         try
         {
             PrintWriter outputFile = new PrintWriter (filename);
-            outputFile.println();
+            outputFile.println(winner +" wins. Final Score Player ("+playerscore+") and Computer ("+comscore+")");
             outputFile.close();    
         }
         catch(IOException exception)

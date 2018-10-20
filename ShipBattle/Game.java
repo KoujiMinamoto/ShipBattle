@@ -107,8 +107,16 @@ public class Game
     {
         Ship ranklist = new Ship();
         String newname = "comship"+(i+1);
-        int x = Random.randInt(0,maxpos-1);
-        int y = Random.randInt(0,maxpos-1);
+        boolean exit = false;
+        int x = 0;
+        int y =0;
+        while(!exit)
+        {
+        x = Random.randInt(0,maxpos-1);
+        y = Random.randInt(0,maxpos-1);
+        if(validrepeatcom(x,y)==false)
+        exit=true;
+        }
         ranklist.setshipName(newname);
         ranklist.setxPos(x);
         ranklist.setyPos(y);
@@ -118,6 +126,7 @@ public class Game
     
     public void result(int i)
     {
+        System.out.println("------------------------------"); 
         System.out.println("Beginning Round "+i); 
         System.out.println("Player score "+playerscore); 
         System.out.println("Computer score "+comscore); 
@@ -271,6 +280,24 @@ public class Game
         return false;
     }
     
+    public boolean validrepeatcom(int x,int y) //method to check insert any empties or blanks
+    {
+        int a = 0;
+        for(int i=0;i<computerShips.getnumberofships();i++)
+        {
+            if(x==computerShips.getships().get(i).getxPos()&&y==computerShips.getships().get(i).getyPos())
+            {
+                a =1;
+                
+            }
+
+        }
+        if(a!=0)
+        return true;
+        else
+        return false;
+    }
+    
     public void guess(int maxpos)
     {
         Scanner input = new Scanner(System.in);
@@ -314,6 +341,7 @@ public class Game
         
         //for com
         i= 0;
+        checkhit = false;
         int comx=Random.randInt(0,maxpos-1);
         int comy=Random.randInt(0,maxpos-1);
         System.out.println("Computer to make a guess"); 
@@ -321,7 +349,7 @@ public class Game
         System.out.println("Computer guess y"+comy); 
         while(i < maxship)
         {    
-                if(x==playerShips.getships().get(i).getxPos()&&y==playerShips.getships().get(i).getyPos())
+                if(comx==playerShips.getships().get(i).getxPos()&&comy==playerShips.getships().get(i).getyPos())
                 {   
                     System.out.println("COMPUTER HITTTTTT!"); 
                     checkhit = true; 

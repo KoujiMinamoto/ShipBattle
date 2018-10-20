@@ -33,7 +33,7 @@ public class Game
         boolean exit = false;
         int maxpos = pos;
         int i = 0;
-        System.out.println("maxpos"+ maxpos); 
+        System.out.println("Loading settings");
         while(i < maxship)
         {
             System.out.println("Please insert shipname for ship"+ (i+1)); 
@@ -64,7 +64,7 @@ public class Game
             if(winner!=null)
             {
                 System.out.println("Congrulations!!"+winner+"Win !!"); 
-                
+                writeFile();
                 exit = true;
             }
             round++;
@@ -87,17 +87,18 @@ public class Game
         {
         System.out.println("Please insert ship"+(numberofship+1)+" X(0-"+(maxpos-1)+")"); 
         String newx = input.nextLine();
-        while(!validshipxy(newx))
+        while(!validshipxy(newx,maxpos))
         newx = input.nextLine();
         x = convertStringtoInt(newx);
         
         System.out.println("Please insert ship"+(numberofship+1)+" Y(0-"+(maxpos-1)+")");
         String newy = input.nextLine();
-        while(!validshipxy(newy))
+        while(!validshipxy(newy,maxpos))
         newy = input.nextLine();
         y = convertStringtoInt(newy);
         if(validrepeat(x,y)==false)
         exit=true;
+        else
         System.out.println("Please insert diffrernt x and y, can not be same");
         }
         ranklist.setshipName(newname);
@@ -175,7 +176,7 @@ public class Game
     
     public void display(int maxpos)
     {
-        
+        System.out.println("Player gird");
         for(int y=0;y < maxpos;y++)
         {
             for(int x=0;x < maxpos;x++)
@@ -216,7 +217,7 @@ public class Game
     
     public void displaycom(int maxpos)
     {
-        
+        System.out.println("Computer gird");
         for(int y=0;y < maxpos;y++)
         {
             for(int x=0;x < maxpos;x++)
@@ -296,7 +297,7 @@ public class Game
     
      public void writeFile()
     {
-        filename = ("statistics.txt");
+        filename = ("gameoutcome.txt");
         //try catch to handle IOException
         try
         {
@@ -357,7 +358,7 @@ public class Game
         return true;
     }
     
-    public boolean validshipxy(String iobuffer) //method to check insert any empties or blanks
+    public boolean validshipxy(String iobuffer,int maxpos) //method to check insert any empties or blanks
     {
         if (iobuffer.matches("[0-9]*"))
         {        
@@ -366,10 +367,25 @@ public class Game
                 System.out.println("Error : please insert Not blANK !");
                 return false;
             }
-            return true;
+            else if(convertStringtoInt(iobuffer)>=0&&convertStringtoInt(iobuffer)<maxpos)
+            {
+                return true;
+            }
+            else
+            {
+            
+            System.out.println("Error: should in range");
+            return false;
+            }
          }
+         else
+        {
         System.out.println("Error: opition should be numbers.Please enter again:");
-        return true;
+        return false;
+        }
+        
+        
+        
     }
     
     public boolean validrepeat(int x,int y) //method to check insert any empties or blanks

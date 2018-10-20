@@ -6,4 +6,6 @@ comment2.params=
 comment2.target=java.util.ArrayList\ getships()
 comment3.params=newship
 comment3.target=boolean\ addship(Ship)
-numComments=4
+comment4.params=
+comment4.target=int\ getnumberofships()
+numComments=5

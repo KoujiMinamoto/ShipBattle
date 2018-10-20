@@ -5,7 +5,9 @@ public class Ship
    private int xPos, yPos,noOfHitsMade,noOfHitsNeeded;
    public Ship()
    {
-    
+       int noOfHitsMade = 0;
+       int noOfHitsNeeded = 3;
+       
     }
    
    public void setshipName(String ship)

@@ -3,7 +3,7 @@ import java.io.*;
 public class ShipList
 {
    private ArrayList<Ship> shipList;
- 
+   
    public ShipList()
    {
        shipList = new ArrayList<Ship>();
@@ -23,4 +23,12 @@ public class ShipList
         }
         return false;       
     }
+    
+    public int getnumberofships()
+   {
+       
+       return shipList.size();
+    
+   }
+
 }
